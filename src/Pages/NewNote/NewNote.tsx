@@ -81,7 +81,7 @@ export default function NewNote() {
     const newNote = {
       id: `${Date.now()}`, // ID único baseado na timestamp atual
       title: title ? title : "Titulo",
-      description: description ? description : "Sem descrição",
+      description,
       content: `${content.slice(0, 70)}...`,
       tags: selectedTags.map(e => e.value),
       category: selectedCategory ? selectedCategory.value : "",

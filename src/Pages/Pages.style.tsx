@@ -12,6 +12,7 @@ import { IoMdLock, IoMdUnlock  } from "react-icons/io";
 export const PageContainer = styled.form`
     width: 100%;
     padding: 2rem 1rem;
+    box-sizing: border-box;
 `;
 export const PageTop = styled.div`
     display: flex;
@@ -107,4 +108,5 @@ export const PageContent = styled.textarea`
   font-size: 1.8rem;
   color: ${({ theme }) => theme.text};
   overflow-y: hidden;
+  height: 100vh;
 `

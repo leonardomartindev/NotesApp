@@ -1,4 +1,5 @@
 import React, { useContext, useMemo, useState } from "react";
+
 import {
   Li,
   Navigation,
@@ -34,6 +35,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { SideBarContext } from "../../context/AssideVisibledContext";
 import { TagsContext } from "../../context/TagsContext";
 import { CategoriesContext } from "../../context/CategoryContext";
+import { NotesContext } from "../../context/NotesContext"; // Importação do contexto de Notas
 import { RiInboxFill, RiFileList2Fill } from "react-icons/ri";
 import { FaStar, FaTrash, FaMoon } from "react-icons/fa";
 import { IoArchiveSharp } from "react-icons/io5";
@@ -47,8 +49,8 @@ export default function SideBar() {
   const { sideBarVisibled, changeSideBar } = useContext(SideBarContext);
   const { labelSwitch, theme } = useContext(ThemeContext);
   const { tags, addTag, deleteTag } = useContext(TagsContext);
-  const { categories, deleteCategory, addCategory } =
-    useContext(CategoriesContext);
+  const { categories, deleteCategory, addCategory } = useContext(CategoriesContext);
+  const { dispatch } = useContext(NotesContext); // Utilizando o contexto de Notas
 
   const menuItems = useMemo(
     () => [
@@ -122,6 +124,7 @@ export default function SideBar() {
   const handleDeleteTag = (tag: string) => {
     deleteTag(tag);
   };
+
   const handleDeleteCategory = (tag: string) => {
     deleteCategory(tag);
   };
@@ -141,27 +144,26 @@ export default function SideBar() {
     setCategoryInput(!categoryInput);
   };
 
-  // const { dispatch } = useContext(NotesContext);
+  const id = Date.now();
 
-  // const id = Date.now()
 
-  // const handleNewNote = (e: React.MouseEvent) => {
-  //   e.preventDefault()
-  //   const newNote = {
-  //     id: `${id}`, // ID único baseado na timestamp atual
-  //     title: "",
-  //     description: "",
-  //     content: "",
-  //     tags: [],
-  //     category: "",
-  //     createdAt: new Date(),
-  //     updatedAt: new Date(),
-  //     favorite: false,
-  //     archived: false,
-  //     deleted: false,
-  //   };
-  //   dispatch({ type: "ADD_NOTE", payload: newNote });
-  // };
+const handleNewNote = (e: React.MouseEvent) => {
+  e.preventDefault();
+  const newNote = {
+    id: `${id}`,
+    title: "Nova Nota",
+    description: "",
+    content: "Escreva aqui sua nova nota!",
+    tags: [],
+    category: "",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    favorite: false,
+    archived: false,
+    deleted: false,
+  };
+  dispatch({ type: "ADD_NOTE", payload: newNote });
+};
 
 
   return (
@@ -171,9 +173,9 @@ export default function SideBar() {
     >
       <ElementsSideBarContainer>
         <TopSideBar>
-          <NewNoteButton>
-            <StyledLink  to={`/novanota`}>
-            <PlusIcon />
+          <NewNoteButton onClick={handleNewNote}>
+            <StyledLink to={`/note/${id}`}>
+              <PlusIcon />
               <h1>Nova Nota</h1>
             </StyledLink>
           </NewNoteButton>

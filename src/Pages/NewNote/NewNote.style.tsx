@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const ContainerNewNote = styled.form`
   width: 100%;
   padding: 2rem 1rem;
-  height: auto;
 `;
 
 export const Selectors = styled.div`
@@ -50,6 +49,5 @@ export const Content = styled.textarea`
   font-size: 1.8rem;
   color: ${({ theme }) => theme.text};
   overflow-y: hidden;
-  height: 100vh;
 `;
 

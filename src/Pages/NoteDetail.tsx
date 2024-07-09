@@ -14,8 +14,6 @@ import {
   PageDescription,
   PageLine,
   PageOptions,
-  PageTag,
-  PageTags,
   PageTitle,
   PageTop,
   TitleContainer,
@@ -26,6 +24,7 @@ import { CategoriesContext } from "../context/CategoryContext";
 import CreatableSelect from "react-select/creatable";
 import { ThemeContext } from "../context/ThemeContext";
 import { Selectors } from "./NewNote/NewNote.style";
+import NotFoundNotes from "./NoteFoundNotesPage/NotFoundNotes";
 
 type OptionType = { value: string; label: string };
 
@@ -38,7 +37,8 @@ export default function NoteDetail() {
   const [newTitle, setNewTitle] = useState<string>(note ? note.title : "");
   const [newDescription, setNewDescription] = useState<string>(note ? note.description : "");
   const [newContent, setNewContent] = useState<string>(note ? note.content : "");
-  const [noteEditable, setNoteEditable] = useState(false);
+  const [noteEditable, setNoteEditable] = useState(true);
+  const [editing, setEditing] = useState(false); // Estado para controlar se está em modo de edição
 
   const { tags, addTag } = useContext(TagsContext);
   const { categories, addCategory } = useContext(CategoriesContext);
@@ -52,13 +52,20 @@ export default function NoteDetail() {
       setNewTitle(note.title);
       setNewDescription(note.description);
       setNewContent(note.content);
+      setSelectedTags(note.tags.map(tag => ({ value: tag, label: tag })));
+      setSelectedCategory(note.category ? { value: note.category, label: note.category } : null);
     }
   }, [note]);
 
   useEffect(() => {
-    handleEditNote();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newTitle, newDescription, newContent, selectedTags, selectedCategory]);
+    if (editing) {
+      // Atualiza a nota apenas quando estiver editando
+      if (note && (newTitle !== note.title || newDescription !== note.description || newContent !== note.content || JSON.stringify(selectedTags.map(e => e.value)) !== JSON.stringify(note.tags) || (selectedCategory ? selectedCategory.value : "") !== note.category)) {
+        handleEditNote();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editing, newTitle, newDescription, newContent, selectedTags, selectedCategory]);
 
   const handleEditNote = () => {
     if (note) {
@@ -77,27 +84,26 @@ export default function NoteDetail() {
 
   const handleTagChange = (newValue: readonly OptionType[]) => {
     const mutableTags = newValue.map((option) => ({ ...option }));
-    const newTags = newValue.map((option: OptionType) => option.value);
     setSelectedTags(mutableTags);
 
-    if (newValue) {
-      newTags.forEach((tag) => {
-        if (!tags.includes(tag)) {
-          addTag(tag);
-        }
-      });
-    }
+    newValue.forEach((tag) => {
+      if (!tags.includes(tag.value)) {
+        addTag(tag.value);
+      }
+    });
   };
 
   const handleCategoryChange = (newValue: OptionType | null) => {
     setSelectedCategory(newValue);
+
     if (newValue && !categories.includes(newValue.value)) {
       addCategory(newValue.value);
     }
   };
 
   const toggleNoteEditable = () => {
-    setNoteEditable(!noteEditable);
+    setNoteEditable(prev => !prev); // Alterna o estado de editable
+    setEditing(prev => !prev); // Alterna o estado de editing
   };
 
   return (
@@ -105,12 +111,12 @@ export default function NoteDetail() {
       {note ? (
         <PageContainer>
           <PageTop>
-            {noteEditable && (
               <Selectors>
                 <CreatableSelect
                   placeholder="Tags:"
                   id="tags"
                   isMulti={true}
+                  isDisabled={editing ? true : false}
                   onChange={handleTagChange}
                   options={tags.map((tag) => ({ value: tag, label: tag }))}
                   value={selectedTags}
@@ -152,6 +158,7 @@ export default function NoteDetail() {
                 />
                 <CreatableSelect
                   placeholder="Categorias:"
+                  isDisabled={editing ? true : false}
                   isClearable
                   id="categories"
                   isMulti={false}
@@ -210,15 +217,6 @@ export default function NoteDetail() {
                   }}
                 />
               </Selectors>
-            )}
-
-            {note.tags && (
-              <PageTags>
-                {note.tags.map((el, index) => (
-                  <PageTag key={index}>{el}</PageTag>
-                ))}
-              </PageTags>
-            )}
 
             <PageOptions>
               {noteEditable ? (
@@ -246,6 +244,7 @@ export default function NoteDetail() {
               onChange={(e) => setNewDescription(e.currentTarget.value)}
               value={newDescription}
               disabled={!noteEditable}
+              placeholder="Descrição da nota aqui"
             />
           </TitleContainer>
           <PageLine />
@@ -256,7 +255,7 @@ export default function NoteDetail() {
           />
         </PageContainer>
       ) : (
-        <p>Nota não encontrada</p>
+        <NotFoundNotes/>
       )}
     </>
   );

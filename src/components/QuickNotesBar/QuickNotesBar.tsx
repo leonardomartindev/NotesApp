@@ -97,7 +97,7 @@ export const QuickNotesBar: React.FC<QuickNotesBarProps> = ({ visible }) => {
               <CardNote>
                 <CardNoteTitle>{el.title}</CardNoteTitle>
                 <CardNoteLine />
-                  <CardNoteContent>{el.content}</CardNoteContent>
+                  <CardNoteContent>{`${el.content.slice(0, 70)}...`}</CardNoteContent>
                 <CardNoteTags>
                   {el.tags.map((tag, tagIndex) => (
                     <CardNoteTag key={tagIndex}>{tag}</CardNoteTag>
