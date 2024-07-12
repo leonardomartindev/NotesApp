@@ -30,6 +30,9 @@ import {
   CategoryInput,
   AddNewCategoryIcon,
   ElementsSideBarContainer,
+  NoteContainer,
+  NoteIcon,
+  NoteTitle,
 } from "./SideBar.style";
 import { ThemeContext } from "../../context/ThemeContext";
 import { SideBarContext } from "../../context/AssideVisibledContext";
@@ -43,14 +46,14 @@ import SwitchToggle from "./SwitchToggle";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 import { FaFolderPlus } from "react-icons/fa";
-import { FaFolderMinus, FaPenToSquare } from "react-icons/fa6";
+import { FaFolderMinus } from "react-icons/fa6";
 
 export default function SideBar() {
   const { sideBarVisibled, changeSideBar } = useContext(SideBarContext);
   const { labelSwitch, theme } = useContext(ThemeContext);
   const { tags, addTag, deleteTag } = useContext(TagsContext);
   const { categories, deleteCategory, addCategory } = useContext(CategoriesContext);
-  const { dispatch } = useContext(NotesContext); // Utilizando o contexto de Notas
+  const { state, dispatch } = useContext(NotesContext); // Utilizando o contexto de Notas
 
   const menuItems = useMemo(
     () => [
@@ -166,6 +169,7 @@ const handleNewNote = (e: React.MouseEvent) => {
 };
 
 
+
   return (
     <SideBarContainer
       style={{ display: sideBarVisibled }}
@@ -250,14 +254,32 @@ const handleNewNote = (e: React.MouseEvent) => {
           {categoriesIsOpen && (
             <CategoriesList>
               {categories.map((category, index) => (
+
                 <Category
                   key={index}
                   onClick={() => toggleCategoryOpen(category)}
                   onContextMenu={(e) => handleRightClick(e, category)}
                 >
+                  <div>
+
                   <span>{categoryStates[category] ? "▼" : "▶"}</span>
                   <DelCategoryIcon />
                   {category}
+                  </div>
+                  {categoryStates[category] && (
+                    <div>
+                      {state.notes
+                        .filter((note) => note.category === category)
+                        .map((note) => (
+                          <StyledLink key={index} to={`/note/${note.id}`}>
+                          <NoteContainer key={note.id}>
+                            <NoteIcon />
+                            <NoteTitle>{note.title.slice(0, 25)}</NoteTitle>
+                          </NoteContainer>
+                            </StyledLink>
+                        ))}
+                    </div>
+                  )}
                 </Category>
               ))}
             </CategoriesList>
@@ -270,10 +292,6 @@ const handleNewNote = (e: React.MouseEvent) => {
               }}
             >
               <OptionsModal>
-                <OptionModal onClick={() => console.log(contextMenu.category)}>
-                  <FaPenToSquare />
-                  Nova Nota
-                </OptionModal>
                 <OptionModal onClick={showInput}>
                   <FaFolderPlus />
                   Nova Categoria

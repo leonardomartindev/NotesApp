@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { FaPlus } from "react-icons/fa";
 import { TbLayoutSidebar } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import { FaFolder } from "react-icons/fa";
-import { FaFolderPlus } from "react-icons/fa";
+import { FaFolder, FaStickyNote, FaFolderPlus, FaPlus } from "react-icons/fa";
 
 export const SideBarContainer = styled.aside`
   min-width: 300px;
@@ -223,9 +221,6 @@ export const AddNewCategoryIcon = styled(FaFolderPlus)`
 
 export const CategoryTitle = styled(TagsTitle)`
 
-  display:flex;
-  justify-content: space-between;
-  align-items: center;
 
   div {
     display: flex;
@@ -242,19 +237,42 @@ export const CategoryTitle = styled(TagsTitle)`
 
 
 export const CategoriesList = styled.div`
-  margin-left: 2rem;
+  margin-left: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 `;
 export const Category = styled.div`
   user-select: none;
   cursor: pointer;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
   font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    gap: 1rem;
+  }
 `;
+
+
+export const NoteContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  height: 3rem;
+  margin: 1rem 0;
+  transition: all 100ms ease;
+  margin-left: 1.8rem;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.text};
+    color: ${({ theme }) => theme.body};
+  }
+`
+export const NoteIcon = styled(FaStickyNote)``
+export const NoteTitle = styled.p``
+
 export const DelCategoryIcon = styled(FaFolder)``;
 
 export const ModalSettings = styled.div`
@@ -301,3 +319,4 @@ export const CategoryInput = styled.input`
     border: 2px solid ${({ theme }) => theme.text};
   }
 `;
+
