@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { PiNoteFill } from "react-icons/pi";
-import { IoMdOpen } from "react-icons/io";
 
 export const NotFoundContainer = styled.div`
     display: flex;
+    align-items: center;
     margin: auto;
     gap: 2rem;
 `
@@ -16,14 +16,6 @@ export const Title = styled.h1`
     max-width: 540px;
 `
 export const RedirectContainer = styled.div``
-export const RedirectIcon = styled(IoMdOpen)``
-export const Redirect = styled.p`
-    cursor: pointer;
-
- &:hover{ 
-       text-decoration:underline;
-    }
-`
 
 export const ContainerBottom = styled.div`
     display: flex;

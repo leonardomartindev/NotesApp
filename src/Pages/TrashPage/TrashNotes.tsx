@@ -12,6 +12,7 @@ import {
   TrashContainer,
 } from "./TrashNotes.style";
 import { NotesContext } from "../../context/NotesContext";
+import NotFoundNotes from "../NoteFoundNotesPage/NotFoundNotes";
 
 export default function Inbox() {
   const { state, dispatch } = useContext(NotesContext);
@@ -32,20 +33,24 @@ export default function Inbox() {
 
       <h1>Lixeira</h1>
 
-      <ListTrashNotes>
-        {state.trash.map((e, index) => (
-          <ItemList key={index}>
-            <Div>
-              <NoteIcon />
-              <NoteTitle>{e.title}</NoteTitle>
-            </Div>
-            <Div>
-              <NoteUndo onClick={() => handleUndo(e.id)} />
-              <NoteDel onClick={() => handleDeleteForever(e.id)} />
-            </Div>
-          </ItemList>
-        ))}
-      </ListTrashNotes>
+      {state.trash.length > 0 ? (
+        <ListTrashNotes>
+          {state.trash.map((e, index) => (
+            <ItemList key={index}>
+              <Div>
+                <NoteIcon />
+                <NoteTitle>{`${e.title.slice(0, 45)}...`}</NoteTitle>
+              </Div>
+              <Div>
+                <NoteUndo onClick={() => handleUndo(e.id)} />
+                <NoteDel onClick={() => handleDeleteForever(e.id)} />
+              </Div>
+            </ItemList>
+          ))}
+        </ListTrashNotes>
+      ) : (
+        <NotFoundNotes />
+      )}
     </TrashContainer>
   );
 }

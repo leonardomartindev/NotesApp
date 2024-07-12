@@ -21,7 +21,7 @@ import { TagsContext } from "../context/TagsContext";
 import { CategoriesContext } from "../context/CategoryContext";
 import CreatableSelect from "react-select/creatable";
 import { ThemeContext } from "../context/ThemeContext";
-import { Selectors } from "./NewNote/NewNote.style";
+import { Selectors } from "./Pages.style";
 import NotFoundNotes from "./NoteFoundNotesPage/NotFoundNotes";
 import OptionQuickNotes from "../components/OptionQuickNotes/OptionQuickNotes";
 import AutoResizeTextarea from "../components/AutoResizeTextarea";

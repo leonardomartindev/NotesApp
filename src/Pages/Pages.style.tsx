@@ -119,3 +119,8 @@ export const PageContent = styled.textarea`
   min-height: 100vh; // Define uma altura mínima
   box-sizing: border-box; // Inclui padding e border no cálculo da altura total
 `;
+
+export const Selectors = styled.div`
+    display: flex;
+    gap: 1rem;
+`

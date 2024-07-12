@@ -5,9 +5,11 @@ import { FaPen, FaStar, FaTrash, FaStickyNote } from "react-icons/fa";
 export const MainContainer = styled.div`
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
-export const FavoritesContainer = styled.div`
+export const ItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
@@ -17,7 +19,7 @@ export const ChangeViewContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  justify-content: end;
+  justify-content: flex-end;
   user-select: none;
 `;
 
@@ -40,42 +42,42 @@ export const Line = styled.div`
   background-color: ${({ theme }) => theme.text};
 `;
 
-export const FavoritesNotesContainer = styled.div<{ view: boolean }>`
+export const CardsContainer = styled.div<{ view: boolean }>`
   display: grid;
   grid-template-columns: ${({ view }) => view ? "repeat(auto-fill, minmax(300px, 1fr))" : "1fr"};
   gap: ${({ view }) => (view ? "1.5rem" : "0")};
   padding: 2rem 0;
 `;
 
-export const FavoritesNotesCard = styled.div`
+export const Card = styled.div`
   background-color: ${({ theme }) => theme.contrast};
   color: ${({ theme }) => theme.text};
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%; 
+  height: 100%;
 `;
 
-export const HeaderCard = styled.div`
+export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
 `;
 
-export const TitleFavoriteNote = styled.h3``;
+export const Title = styled.h3``;
 
-export const EditFavoriteNoteIcon = styled(FaPen)``;
+export const EditIcon = styled(FaPen)``;
 
-export const FavoritesNotesTags = styled.div`
+export const TagsContainer = styled.div`
   display: flex;
   gap: 1rem;
   padding: 0 2rem;
   flex-wrap: wrap;
 `;
 
-export const FavoritesNoteTag = styled.p`
+export const Tag = styled.p`
   border-radius: 0.6rem;
   display: flex;
   background-color: ${({ theme }) => theme.text};
@@ -83,13 +85,13 @@ export const FavoritesNoteTag = styled.p`
   padding: 0.5rem 1rem;
 `;
 
-export const TagsViewContainer = styled(FavoritesNotesTags)`
+export const TagsViewContainer = styled(TagsContainer)`
   padding: 0 1rem;
 `;
 
-export const TagsView = styled(FavoritesNoteTag)``;
+export const TagView = styled(Tag)``;
 
-export const FavoriteNoteContent = styled.p`
+export const Content = styled.p`
   opacity: 0.5;
   padding: 0 2rem;
   flex: 1; // Allow content to stretch
@@ -108,9 +110,9 @@ export const Footer = styled.div`
   border-bottom-right-radius: 8px;
 `;
 
-export const DellFavoriteNote = styled(FaTrash)``;
+export const DeleteIcon = styled(FaTrash)``;
 
-export const UnFavoriteNote = styled(FaStar)``;
+export const StarIcon = styled(FaStar)``;
 
 export const ListViewContainer = styled.ul`
   list-style: none;
@@ -118,7 +120,7 @@ export const ListViewContainer = styled.ul`
   margin: 0;
 `;
 
-export const ListFavoriteNotes = styled.li`
+export const ListItem = styled.li`
   border-radius: 6px;
   margin: 0.5rem 0;
   display: flex;
@@ -131,7 +133,7 @@ export const ListFavoriteNotes = styled.li`
   }
 `;
 
-export const TopFavoriteContainerList = styled.div`
+export const TopListContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;

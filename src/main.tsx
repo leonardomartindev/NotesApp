@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { ThemeProvider } from "./context/ThemeContext";
-import Inbox from "./Pages/InboxPage/InboxNotes";
+import Inbox from "./Pages/InboxNotes";
 import AllNotes from "./Pages/AllNotes";
-import FavoritesNotes from "./Pages/FavoritePage/FavoritesNotes";
-import ArchivedNotes from "./Pages/ArchivedNotes/ArchivedNotes";
+import FavoritesNotes from "./Pages/FavoritesNotes";
+import ArchivedNotes from "./Pages/ArchivedNotes";
 import TrashNotes from "./Pages/TrashPage/TrashNotes";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { SideBarProvider } from "./context/AssideVisibledContext";
@@ -13,7 +13,6 @@ import { TagsProvider } from "./context/TagsContext";
 import { CategoriesProvider } from "./context/CategoryContext";
 import NoteDetail from "./Pages/NoteDetail";
 import { NotesProvider } from "./context/NotesContext";
-import NewNote from "./Pages/NewNote/NewNote";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +24,6 @@ const router = createBrowserRouter([
       { path: "favoritas", element: <FavoritesNotes /> },
       { path: "arquivadas", element: <ArchivedNotes /> },
       { path: "lixeira", element: <TrashNotes /> },
-      { path: "novanota", element: <NewNote /> },
       { path: "note/:id", element: <NoteDetail /> },
     ],
   },
