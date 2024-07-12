@@ -13,6 +13,7 @@ export const SideBarContainer = styled.aside`
   z-index: 2;
   box-sizing: border-box;
   transition: all 0.3s ease;
+  height: auto;
 `;
 
 export const ElementsSideBarContainer = styled.div`

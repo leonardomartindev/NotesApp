@@ -10,7 +10,6 @@ import {
   OptionUnArchiveNote,
   OptionUnFavoriteNote,
   PageContainer,
-  PageContent,
   PageDescription,
   PageLine,
   PageOptions,
@@ -25,6 +24,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { Selectors } from "./NewNote/NewNote.style";
 import NotFoundNotes from "./NoteFoundNotesPage/NotFoundNotes";
 import OptionQuickNotes from "../components/OptionQuickNotes/OptionQuickNotes";
+import AutoResizeTextarea from "../components/AutoResizeTextarea";
 
 type OptionType = { value: string; label: string };
 
@@ -150,7 +150,7 @@ export default function NoteDetail() {
       dispatch({ type: "UNARCHIVE_NOTE", payload: note.id });
     }
   };
-  
+
 
   return (
     <>
@@ -301,11 +301,12 @@ export default function NoteDetail() {
             />
           </TitleContainer>
           <PageLine />
-          <PageContent
-            onChange={(e) => setNewContent(e.currentTarget.value)}
-            value={newContent}
-            disabled={!noteEditable}
+          <AutoResizeTextarea
+            content={newContent}
+            onChange={(e) => setNewContent(e.target.value)}
+            editable={noteEditable}
           />
+
         </PageContainer>
       ) : (
         <NotFoundNotes />

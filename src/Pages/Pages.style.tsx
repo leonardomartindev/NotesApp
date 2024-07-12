@@ -106,7 +106,7 @@ export const PageLine = styled.div`
   background-color: ${({ theme }) => theme.secondary};
 `
 export const PageContent = styled.textarea`
-  resize: none;
+  resize: none; // Desabilita o redimensionamento manual pelo usuário
   width: 100%;
   background-color: transparent;
   outline: none;
@@ -115,6 +115,7 @@ export const PageContent = styled.textarea`
   font-family: "Open Sans", sans-serif;
   font-size: 1.8rem;
   color: ${({ theme }) => theme.text};
-  overflow-y: hidden;
-  height: 100vh;
-`
+  overflow-y: hidden; // Esconde a barra de rolagem vertical
+  min-height: 100vh; // Define uma altura mínima
+  box-sizing: border-box; // Inclui padding e border no cálculo da altura total
+`;
