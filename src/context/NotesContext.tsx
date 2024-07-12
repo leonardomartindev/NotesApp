@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import {  NotesAction, NotesState } from "../types/Index";
+import { NotesAction, NotesState } from "../types/Index";
 
 interface NotesProviderProps {
   children: React.ReactNode;
@@ -29,17 +29,51 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       };
     }
     case "UPDATE_NOTE": {
+
+      const updatedNotes = state.notes.map((note) => 
+        note.id === action.payload.id ? action.payload : note
+      );
+
+      const updatedFavoriteNotes = state.favoriteNotes.map((note) =>
+        note.id === action.payload.id ? action.payload : note
+      );
+
       return {
         ...state,
-        notes: state.notes.map((note) =>
-          note.id === action.payload.id ? action.payload : note
-        ),
+        notes: updatedNotes,
+        favoriteNotes: updatedFavoriteNotes,
       };
     }
+    case "FAVORITE_NOTE": {
+      const noteToFavorite = state.notes.find((note) => note.id === action.payload);
+      if (noteToFavorite) {
+        return {
+          ...state,
+          notes: state.notes.filter((note) => note.id !== action.payload),
+          favoriteNotes: [
+            ...state.favoriteNotes,
+            { ...noteToFavorite, favorite: true },
+          ],
+        };
+      }
+      return state;
+    }
+    case "UNFAVORITE_NOTE": {
+      const noteToUnfavorite = state.favoriteNotes.find((note) => note.id === action.payload);
+      if (noteToUnfavorite) {
+        return {
+          ...state,
+          favoriteNotes: state.favoriteNotes.filter((note) => note.id !== action.payload),
+          notes: [
+            ...state.notes,
+            { ...noteToUnfavorite, favorite: false },
+          ],
+        };
+      }
+      return state;
+    }
     case "ARCHIVE_NOTE": {
-      const noteToArchive = state.notes.find(
-        (note) => note.id === action.payload
-      );
+      const noteToArchive = state.notes.find((note) => note.id === action.payload);
       if (noteToArchive) {
         return {
           ...state,
@@ -52,6 +86,21 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       }
       return state;
     }
+    case "UNARCHIVE_NOTE": {
+      const noteToUnarchive = state.archivedNotes.find((note) => note.id === action.payload);
+      if (noteToUnarchive) {
+        return {
+          ...state,
+          archivedNotes: state.archivedNotes.filter((note) => note.id !== action.payload),
+          notes: [
+            ...state.notes,
+            { ...noteToUnarchive, archived: false },
+          ],
+        };
+      }
+      return state;
+    }
+
     case "DELETE_NOTE": {
       const noteToDelete =
         state.notes.find((note) => note.id === action.payload) ||
@@ -72,9 +121,7 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       return state;
     }
     case "RESTORE_NOTE": {
-      const noteToRestore = state.trash.find(
-        (note) => note.id === action.payload
-      );
+      const noteToRestore = state.trash.find((note) => note.id === action.payload);
       if (noteToRestore) {
         return {
           ...state,
@@ -86,6 +133,12 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
         };
       }
       return state;
+    }
+    case "DELETE_FOREVER": {
+      return {
+        ...state,
+        trash: state.trash.filter((note) => note.id !== action.payload),
+      };
     }
     case "EMPTY_TRASH": {
       const thirtyDaysAgo = new Date();
@@ -101,7 +154,6 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       return state;
   }
 };
-
 
 export const NotesProvider: React.FC<NotesProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(notesReducer, {

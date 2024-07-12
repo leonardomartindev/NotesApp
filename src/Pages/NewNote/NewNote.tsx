@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 
 import {
-  OptionCloseNote,
   OptionCloseQuickNotes,
   OptionDelNote,
   OptionFavoriteNote,
@@ -211,7 +210,6 @@ export default function NewNote() {
         <PageOptions>
           <OptionDelNote />
           <OptionFavoriteNote />
-          <OptionCloseNote />
           {quickNotesBarVisibled === "flex" ? (
             <OptionCloseQuickNotes onClick={changeQuickNotesBar} />
           ) : (

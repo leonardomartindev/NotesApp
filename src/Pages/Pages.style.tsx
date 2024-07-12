@@ -2,9 +2,11 @@ import styled, { css } from "styled-components";
 import {
   MdKeyboardDoubleArrowRight,
   MdKeyboardDoubleArrowLeft,
-  MdOutlineClose,
   MdDelete,
   MdOutlineStarBorder,
+  MdOutlineStar,
+  MdOutlineArchive,
+  MdOutlineUnarchive,
 } from "react-icons/md";
 import { IoMdLock, IoMdUnlock  } from "react-icons/io";
 
@@ -47,7 +49,13 @@ export const OptionDelNote = styled(MdDelete)`
 export const OptionFavoriteNote = styled(MdOutlineStarBorder)`
   ${optionStyle}
 `;
-export const OptionCloseNote = styled(MdOutlineClose)`
+export const OptionUnFavoriteNote = styled(MdOutlineStar)`
+  ${optionStyle}
+`;
+export const OptionArchiveNote = styled(MdOutlineArchive)`
+  ${optionStyle}
+`;
+export const OptionUnArchiveNote = styled(MdOutlineUnarchive)`
   ${optionStyle}
 `;
 export const OptionCloseQuickNotes = styled(MdKeyboardDoubleArrowRight)`

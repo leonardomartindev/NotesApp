@@ -9,7 +9,7 @@ export interface Note {
   category: string; // categoria da nota
   createdAt: Date; // data de criação
   updatedAt: Date; // data de última atualização
-  favorite: boolean,
+  favorite: boolean; // se a nota é favorita
   archived: boolean; // se a nota está arquivada
   deleted: boolean; // se a nota está na lixeira
   deletedAt?: Date; // data em que a nota foi excluída
@@ -17,16 +17,19 @@ export interface Note {
 
 export interface NotesState {
   notes: Note[];
-  favoriteNotes: [],
+  favoriteNotes: Note[];
   archivedNotes: Note[];
   trash: Note[];
 }
 
-export type NotesAction = 
+export type NotesAction =
   | { type: 'ADD_NOTE'; payload: Note }
   | { type: 'UPDATE_NOTE'; payload: Note }
-  | { type: 'FAVORITE_NOTE'; payload: Note }
+  | { type: 'FAVORITE_NOTE'; payload: string }
+  | { type: 'UNFAVORITE_NOTE'; payload: string }
   | { type: 'ARCHIVE_NOTE'; payload: string }
+  | { type: 'UNARCHIVE_NOTE'; payload: string }
   | { type: 'DELETE_NOTE'; payload: string }
   | { type: 'RESTORE_NOTE'; payload: string }
+  | { type: 'DELETE_FOREVER'; payload: string }
   | { type: 'EMPTY_TRASH' };

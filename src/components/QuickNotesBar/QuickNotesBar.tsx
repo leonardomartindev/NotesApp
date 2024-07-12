@@ -95,9 +95,12 @@ export const QuickNotesBar: React.FC<QuickNotesBarProps> = ({ visible }) => {
           filteredNotes.map((el, index) => (
             <StyledLink key={index} to={`/note/${el.id}`}>
               <CardNote>
-                <CardNoteTitle>{el.title}</CardNoteTitle>
+                <CardNoteTitle>{el.title.slice(0,25)}</CardNoteTitle>
                 <CardNoteLine />
-                  <CardNoteContent>{`${el.content.slice(0, 70)}...`}</CardNoteContent>
+                <CardNoteContent>{`${el.content.slice(
+                  0,
+                  70
+                )}...`}</CardNoteContent>
                 <CardNoteTags>
                   {el.tags.map((tag, tagIndex) => (
                     <CardNoteTag key={tagIndex}>{tag}</CardNoteTag>

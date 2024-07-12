@@ -4,6 +4,7 @@ export interface Theme {
   secondary: string;
   secondaryText: string;
   text: string;
+  contrast: string,
 }
 
 export const lightTheme: Theme = {
@@ -11,6 +12,7 @@ export const lightTheme: Theme = {
   secondary: '#EAEAEA',
   secondaryText: '#626262',
   text: '#121212',
+  contrast: '#121212',
 };
 
 export const darkTheme: Theme = {
@@ -18,4 +20,5 @@ export const darkTheme: Theme = {
   secondary: '#2C2A2B',
   secondaryText: '#D6D6D6',
   text: '#D6D6D6',
+  contrast: '#121212',
 };

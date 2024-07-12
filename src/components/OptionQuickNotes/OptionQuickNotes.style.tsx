@@ -1,9 +1,12 @@
 import OptionQuickNotes from "../../components/OptionQuickNotes/OptionQuickNotes";
 import {
+  OptionCloseNote,
+  OptionDelNote,
+  OptionFavoriteNote,
   PageContainer,
   PageOptions,
   PageTop,
-} from "../Pages.style";
+} from "../../Pages/Pages.style";
 
 export default function Inbox() {
   return (
@@ -11,6 +14,9 @@ export default function Inbox() {
       <PageTop>
     <div></div>
         <PageOptions>
+          <OptionDelNote />
+          <OptionFavoriteNote />
+          <OptionCloseNote />
           <OptionQuickNotes/>
         </PageOptions>
       </PageTop>
