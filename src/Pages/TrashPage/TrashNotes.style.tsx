@@ -29,6 +29,7 @@ export const NoteTitle = styled.p``;
 export const NoteUndo = styled(FaUndoAlt)`
   font-size: 2rem;
   cursor: pointer;
+  user-select: none;
 `;
 export const NoteDel = styled(FaTrash)`
   font-size: 2rem;

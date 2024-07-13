@@ -13,8 +13,8 @@ const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({ content, onChan
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = "auto"; // Reset the height
-      textarea.style.height = textarea.scrollHeight + "px"; // Set it to the scrollHeight
+      textarea.style.height = "auto"; 
+      textarea.style.height = textarea.scrollHeight + "px"; 
     }
   }, [content]);
 
@@ -24,7 +24,7 @@ const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({ content, onChan
       ref={textareaRef}
       value={content}
       onChange={onChange}
-      rows={1} // Define a altura mínima
+      rows={1} 
       disabled={!editable}
     />
   );

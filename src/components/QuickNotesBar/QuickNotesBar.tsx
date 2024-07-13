@@ -36,7 +36,14 @@ export const QuickNotesBar: React.FC<QuickNotesBarProps> = ({ $visible }) => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const filterMenuRef = useRef<HTMLDivElement>(null);
 
-  const filteredNotes = state.notes.filter((note) => {
+  // Combina todas as notas, exceto as excluídas
+  const allNotes = [
+    ...state.notes,
+    ...state.favoriteNotes,
+    ...state.archivedNotes,
+  ];
+
+  const filteredNotes = allNotes.filter((note) => {
     const matchesTitle = note.title
       .toLowerCase()
       .includes(searchText.toLowerCase());
@@ -95,7 +102,7 @@ export const QuickNotesBar: React.FC<QuickNotesBarProps> = ({ $visible }) => {
           filteredNotes.map((el, index) => (
             <StyledLink key={index} to={`/note/${el.id}`}>
               <CardNote>
-                <CardNoteTitle>{el.title.slice(0,25)}</CardNoteTitle>
+                <CardNoteTitle>{el.title.slice(0, 25)}</CardNoteTitle>
                 <CardNoteLine />
                 <CardNoteContent>{`${el.content.slice(
                   0,

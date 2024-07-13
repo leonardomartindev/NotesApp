@@ -58,7 +58,6 @@ export default function NoteDetail() {
       setNewContent(note.content);
       setSelectedTags(note.tags.map((tag) => ({ value: tag, label: tag })));
       setSelectedCategory(note.category ? { value: note.category, label: note.category } : null);
-      // Set noteEditable based on whether the note is archived or not
       setNoteEditable(!state.archivedNotes.some((archivedNote) => archivedNote.id === note.id));
     }
   }, [note, state.archivedNotes]);
@@ -114,7 +113,6 @@ export default function NoteDetail() {
   };
 
   const toggleNoteEditable = () => {
-    // Only toggle noteEditable if the note is not archived
     if (!state.archivedNotes.some((archivedNote) => archivedNote.id === note?.id)) {
       setNoteEditable((prev) => !prev);
       setEditing((prev) => !prev);
@@ -150,7 +148,6 @@ export default function NoteDetail() {
       dispatch({ type: "UNARCHIVE_NOTE", payload: note.id });
     }
   };
-
 
   return (
     <>

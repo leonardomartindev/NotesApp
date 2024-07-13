@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useCallback } from "react";
 import OptionQuickNotes from "../components/OptionQuickNotes/OptionQuickNotes";
 import { TopRecoilIcon } from "./TrashPage/TrashNotes.style";
 import {
@@ -33,20 +33,20 @@ import NotFoundNotes from "./NoteFoundNotesPage/NotFoundNotes";
 
 export default function ArchivedNotes() {
   const { state } = useContext(NotesContext);
-  const [gridView, setGridView] = useState<boolean>(true);
+  const [gridView, setGridView] = useState(true);
   const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
 
-  const toggleView = () => {
-    setGridView(!gridView);
-  };
+  const toggleView = useCallback(() => {
+    setGridView((prev) => !prev);
+  }, []);
 
-  const handleMouseEnter = (id: string) => {
+  const handleMouseEnter = useCallback((id: string) => {
     setExpandedNoteId(id);
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setExpandedNoteId(null);
-  };
+  }, []);
 
   return (
     <MainContainer>
@@ -64,8 +64,8 @@ export default function ArchivedNotes() {
           </ChangeViewContainer>
           <Line />
           <CardsContainer $view={gridView.toString()}>
-          {state.archivedNotes.map((note, index) => (
-              <StyledLink key={index} to={`/note/${note.id}`}>
+            {state.archivedNotes.map((note) => (
+              <StyledLink key={note.id} to={`/note/${note.id}`}>
                 {gridView ? (
                   <Card>
                     <Header>

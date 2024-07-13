@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useCallback } from "react";
 import OptionQuickNotes from "../components/OptionQuickNotes/OptionQuickNotes";
 import { TopRecoilIcon } from "./TrashPage/TrashNotes.style";
 import {
@@ -37,17 +37,17 @@ export default function Inbox() {
   const [gridView, setGridView] = useState(true);
   const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
 
-  const toggleView = () => {
-    setGridView(!gridView);
-  };
+  const toggleView = useCallback(() => {
+    setGridView((prev) => !prev);
+  }, []);
 
-  const handleMouseEnter = (id: string) => {
+  const handleMouseEnter = useCallback((id: string) => {
     setExpandedNoteId(id);
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setExpandedNoteId(null);
-  };
+  }, []);
 
   const filteredNotes = state.notes.filter(
     (note) => note.category.length === 0
@@ -70,8 +70,8 @@ export default function Inbox() {
           <Line />
 
           <CardsContainer $view={gridView.toString()}>
-          {filteredNotes.map((note, index) => (
-              <StyledLink key={index} to={`/note/${note.id}`}>
+            {filteredNotes.map((note) => (
+              <StyledLink key={note.id} to={`/note/${note.id}`}>
                 {gridView ? (
                   <Card>
                     <Header>
