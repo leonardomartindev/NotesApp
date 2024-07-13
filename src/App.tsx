@@ -20,16 +20,16 @@ const App = () => {
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyles />
-      <MainContainer isvisible={sideBarVisibled !== "block" ? "true" : "false"}>
+      <MainContainer $isvisible={sideBarVisibled !== "block" ? "true" : "false"}>
         <ContentContainer>
           <RecoilSideBar
             onClick={changeSideBar}
-            isvisible={sideBarVisibled !== "block" ? "true" : "false"}
+            $isvisible={sideBarVisibled !== "block" ? "true" : "false"}
           />
           <SideBar />
           <Outlet />
         </ContentContainer>
-        <QuickNotesBar visible={quickNotesBarVisibled !== "flex" ? "false" : "true"} />
+        <QuickNotesBar $visible={quickNotesBarVisibled !== "flex" ? "false" : "true"} />
       </MainContainer>
     </ThemeProvider>
   );

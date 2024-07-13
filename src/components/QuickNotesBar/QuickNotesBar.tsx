@@ -25,10 +25,10 @@ import { StyledLink } from "../SideBar/SideBar.style";
 import { TagsContext } from "../../context/TagsContext";
 
 interface QuickNotesBarProps {
-  visible: string;
+  $visible: string;
 }
 
-export const QuickNotesBar: React.FC<QuickNotesBarProps> = ({ visible }) => {
+export const QuickNotesBar: React.FC<QuickNotesBarProps> = ({ $visible }) => {
   const { state } = useContext(NotesContext);
   const { tags } = useContext(TagsContext);
   const [searchText, setSearchText] = useState<string>("");
@@ -61,7 +61,7 @@ export const QuickNotesBar: React.FC<QuickNotesBarProps> = ({ visible }) => {
   }, []);
 
   return (
-    <QuickNotesContainer visible={visible}>
+    <QuickNotesContainer $visible={$visible}>
       <TopOptions>
         <SearchNotesContainer>
           <SearchIcon />

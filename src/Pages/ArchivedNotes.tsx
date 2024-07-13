@@ -58,11 +58,13 @@ export default function ArchivedNotes() {
         <ItemsContainer>
           <ChangeViewContainer onClick={toggleView}>
             {gridView ? <GridView /> : <ListView />}
-            <ChangeViewDescription>Visualização de Grade</ChangeViewDescription>
+            <ChangeViewDescription>
+              Visualização de Grade
+            </ChangeViewDescription>
           </ChangeViewContainer>
           <Line />
-          <CardsContainer view={gridView}>
-            {state.archivedNotes.map((note, index) => (
+          <CardsContainer $view={gridView.toString()}>
+          {state.archivedNotes.map((note, index) => (
               <StyledLink key={index} to={`/note/${note.id}`}>
                 {gridView ? (
                   <Card>
@@ -75,7 +77,7 @@ export default function ArchivedNotes() {
                         <TagView key={tag}>{tag}</TagView>
                       ))}
                     </TagsContainer>
-                    <Content>{`${note.content.slice(0, 250)}`}</Content>
+                    <Content>{`${note.content.slice(0, 250)}...`}</Content>
                     <Footer>
                       <DeleteIcon />
                     </Footer>
@@ -88,10 +90,10 @@ export default function ArchivedNotes() {
                     >
                       <TopListContainer>
                         <NoteIcon />
-                        <Title>{`${note.title.slice(0, 25)}...`}</Title>
+                        <Title>{note.title}</Title>
                       </TopListContainer>
                       <ContentListViewContainer
-                        expand={expandedNoteId === note.id}
+                        $expand={(expandedNoteId === note.id).toString()}
                       >
                         <ContentListView>{note.content}</ContentListView>
                         <TagsViewContainer>

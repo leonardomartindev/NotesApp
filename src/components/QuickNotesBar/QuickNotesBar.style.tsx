@@ -4,13 +4,13 @@ import { IoFilter } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { FaSadCry } from "react-icons/fa";
 
-export const QuickNotesContainer = styled.div<{ visible: string }>`
+export const QuickNotesContainer = styled.div<{ $visible: string }>`
   background-color: ${({ theme }) => theme.secondary};
   width: 20vw;
   flex-direction: column;
   gap: 3rem;
   padding: 2rem 4rem 2rem 2rem;
-  display: ${({ visible }) => (visible === "true" ? "flex" : "none")};
+  display: ${({ $visible }) => ($visible === "true" ? "flex" : "none")};
   user-select: none;
 
 `;

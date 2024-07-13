@@ -1,6 +1,5 @@
 import OptionQuickNotes from "../../components/OptionQuickNotes/OptionQuickNotes";
 import {
-  OptionCloseNote,
   OptionDelNote,
   OptionFavoriteNote,
   PageContainer,
@@ -16,7 +15,6 @@ export default function Inbox() {
         <PageOptions>
           <OptionDelNote />
           <OptionFavoriteNote />
-          <OptionCloseNote />
           <OptionQuickNotes/>
         </PageOptions>
       </PageTop>

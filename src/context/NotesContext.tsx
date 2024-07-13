@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import { NotesAction, NotesState } from "../types/Index";
 
 interface NotesProviderProps {
@@ -29,8 +29,7 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       };
     }
     case "UPDATE_NOTE": {
-
-      const updatedNotes = state.notes.map((note) => 
+      const updatedNotes = state.notes.map((note) =>
         note.id === action.payload.id ? action.payload : note
       );
 
@@ -100,7 +99,6 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       }
       return state;
     }
-
     case "DELETE_NOTE": {
       const noteToDelete =
         state.notes.find((note) => note.id === action.payload) ||
@@ -161,7 +159,14 @@ export const NotesProvider: React.FC<NotesProviderProps> = ({ children }) => {
     archivedNotes: [],
     favoriteNotes: [],
     trash: [],
+  }, (initialState) => {
+    const savedState = localStorage.getItem("notesState");
+    return savedState ? JSON.parse(savedState) : initialState;
   });
+
+  useEffect(() => {
+    localStorage.setItem("notesState", JSON.stringify(state));
+  }, [state]);
 
   return (
     <NotesContext.Provider value={{ state, dispatch }}>

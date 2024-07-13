@@ -42,12 +42,13 @@ export const Line = styled.div`
   background-color: ${({ theme }) => theme.text};
 `;
 
-export const CardsContainer = styled.div<{ view: boolean }>`
+export const CardsContainer = styled.div<{ $view: string }>`
   display: grid;
-  grid-template-columns: ${({ view }) => view ? "repeat(auto-fill, minmax(300px, 1fr))" : "1fr"};
-  gap: ${({ view }) => (view ? "1.5rem" : "0")};
+  grid-template-columns: ${({ $view }) => ($view === "true" ? "repeat(auto-fill, minmax(300px, 1fr))" : "1fr")};
+  gap: ${({ $view }) => ($view === "true" ? "1.5rem" : "0")};
   padding: 2rem 0;
 `;
+
 
 export const Card = styled.div`
   background-color: ${({ theme }) => theme.contrast};
@@ -144,18 +145,17 @@ export const NoteIcon = styled(FaStickyNote)`
   font-size: 2rem;
 `;
 
-export const ContentListViewContainer = styled.div<{ expand: boolean }>`
+export const ContentListViewContainer = styled.div<{ $expand: string }>`
   background-color: ${({ theme }) => theme.contrast};
   color: ${({ theme }) => theme.text};
   width: 100%;
-  height: ${({ expand }) => (expand ? "auto" : "0")};
-  max-height: ${({ expand }) => (expand ? "300px" : "0")};
+  height: ${({ $expand }) => ($expand === "true" ? "auto" : "0")};
+  max-height: ${({ $expand }) => ($expand === "true" ? "300px" : "0")};
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 `;
-
 export const ContentListView = styled.p`
   padding: 0 1rem;
 `;

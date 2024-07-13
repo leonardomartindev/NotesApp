@@ -60,11 +60,13 @@ export default function FavoritesNotes() {
         <ItemsContainer>
           <ChangeViewContainer onClick={toggleView}>
             {gridView ? <GridView /> : <ListView />}
-            <ChangeViewDescription>Visualização de Grade</ChangeViewDescription>
+            <ChangeViewDescription>
+              Visualização de Grade
+            </ChangeViewDescription>
           </ChangeViewContainer>
           <Line />
-          <CardsContainer view={gridView}>
-            {state.favoriteNotes.map((note, index) => (
+          <CardsContainer $view={gridView.toString()}>
+          {state.favoriteNotes.map((note, index) => (
               <StyledLink key={index} to={`/note/${note.id}`}>
                 {gridView ? (
                   <Card>
@@ -94,7 +96,7 @@ export default function FavoritesNotes() {
                         <Title>{note.title}</Title>
                       </TopListContainer>
                       <ContentListViewContainer
-                        expand={expandedNoteId === note.id}
+                        $expand={(expandedNoteId === note.id).toString()}
                       >
                         <ContentListView>{note.content}</ContentListView>
                         <TagsViewContainer>
