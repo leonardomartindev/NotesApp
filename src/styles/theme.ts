@@ -12,7 +12,7 @@ export const lightTheme: Theme = {
   secondary: '#EAEAEA',
   secondaryText: '#626262',
   text: '#121212',
-  contrast: '#121212',
+  contrast: '#EAEAEA',
 };
 
 export const darkTheme: Theme = {
