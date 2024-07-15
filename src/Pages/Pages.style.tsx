@@ -11,10 +11,10 @@ import {
 import { IoMdLock, IoMdUnlock } from "react-icons/io";
 
 const breakpoints = {
-  sm: '480px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1200px',
+  sm: "480px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1200px",
 };
 
 export const PageContainer = styled.form`
@@ -46,7 +46,6 @@ export const PageTags = styled.div`
   @media (max-width: ${breakpoints.sm}) {
     font-size: 1.2rem;
   }
-  
 `;
 
 export const PageTag = styled.div`
@@ -90,10 +89,16 @@ export const OptionUnArchiveNote = styled(MdOutlineUnarchive)`
   ${optionStyle}
 `;
 export const OptionCloseQuickNotes = styled(MdKeyboardDoubleArrowRight)`
-  ${optionStyle}
+${optionStyle}
+@media (max-width: 1000px) {
+    display: none;
+  }
 `;
 export const OptionOpenQuickNotes = styled(MdKeyboardDoubleArrowLeft)`
   ${optionStyle}
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 export const OptionEditQuickNotes = styled(IoMdLock)`
   ${optionStyle}
@@ -218,12 +223,14 @@ export const Line = styled.div`
 
 export const CardsContainer = styled.div<{ $view: string }>`
   display: grid;
-  grid-template-columns: ${({ $view }) => ($view === "true" ? "repeat(auto-fill, minmax(300px, 1fr))" : "1fr")};
+  grid-template-columns: ${({ $view }) =>
+    $view === "true" ? "repeat(auto-fill, minmax(300px, 1fr))" : "1fr"};
   gap: ${({ $view }) => ($view === "true" ? "1.5rem" : "0")};
   padding: 2rem 0;
 
   @media (max-width: ${breakpoints.md}) {
-    grid-template-columns: ${({ $view }) => ($view === "true" ? "repeat(auto-fill, minmax(200px, 1fr))" : "1fr")};
+    grid-template-columns: ${({ $view }) =>
+      $view === "true" ? "repeat(auto-fill, minmax(200px, 1fr))" : "1fr"};
   }
 `;
 
@@ -372,4 +379,3 @@ export const ContentContainer = styled.div`
     gap: 1rem;
   }
 `;
-

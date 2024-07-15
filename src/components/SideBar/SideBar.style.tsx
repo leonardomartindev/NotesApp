@@ -12,11 +12,16 @@ export const SideBarContainer = styled.aside`
   box-sizing: border-box;
   transition: all 0.3s ease;
   height: auto;
+
+  @media (max-width: 800px){
+    min-width: 100vw;
+  }
 `;
 
 export const ElementsSideBarContainer = styled.div`
   position: sticky;
   top: 0;
+  
 `
 
 
