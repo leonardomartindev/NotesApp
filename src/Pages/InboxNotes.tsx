@@ -15,7 +15,6 @@ import {
   Content,
   Footer,
   DeleteIcon,
-  StarIcon,
   MainContainer,
   ListViewContainer,
   ListItem,
@@ -33,7 +32,7 @@ import { StyledLink } from "../components/QuickNotesBar/QuickNotesBar.style";
 import NotFoundNotes from "./NoteFoundNotesPage/NotFoundNotes";
 
 export default function Inbox() {
-  const { state } = useContext(NotesContext);
+  const { state, dispatch } = useContext(NotesContext);
   const [gridView, setGridView] = useState(true);
   const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
 
@@ -53,6 +52,11 @@ export default function Inbox() {
     (note) => note.category.length === 0
   );
 
+  
+  const handleDeleteNote = (id: string) => {
+    dispatch({ type: "DELETE_NOTE", payload: id });
+  };
+
   return (
     <MainContainer>
       <TopRecoilIcon>
@@ -71,9 +75,10 @@ export default function Inbox() {
 
           <CardsContainer $view={gridView.toString()}>
             {filteredNotes.map((note) => (
-              <StyledLink key={note.id} to={`/note/${note.id}`}>
+              <>
                 {gridView ? (
                   <Card>
+                    <StyledLink key={note.id} to={`/note/${note.id}`}>
                     <Header>
                       <Title>{note.title.slice(0, 25)}</Title>
                       <EditIcon />
@@ -84,12 +89,14 @@ export default function Inbox() {
                       ))}
                     </TagsContainer>
                     <Content>{`${note.content.slice(0, 250)}...`}</Content>
+                      </StyledLink>
                     <Footer>
-                      <StarIcon />
-                      <DeleteIcon />
+                      <DeleteIcon onClick={() => handleDeleteNote(note.id)} />
                     </Footer>
                   </Card>
                 ) : (
+                  <StyledLink key={note.id} to={`/note/${note.id}`}>
+
                   <ListViewContainer>
                     <ListItem
                       onMouseEnter={() => handleMouseEnter(note.id)}
@@ -111,8 +118,9 @@ export default function Inbox() {
                       </ContentListViewContainer>
                     </ListItem>
                   </ListViewContainer>
+                  </StyledLink>
                 )}
-              </StyledLink>
+              </>
             ))}
           </CardsContainer>
         </ItemsContainer>

@@ -15,7 +15,6 @@ import {
   Content,
   Footer,
   DeleteIcon,
-  StarIcon,
   MainContainer,
   ListViewContainer,
   ListItem,
@@ -33,7 +32,7 @@ import { StyledLink } from "../components/QuickNotesBar/QuickNotesBar.style";
 import NotFoundNotes from "./NoteFoundNotesPage/NotFoundNotes";
 
 export default function AllNotes() {
-  const { state } = useContext(NotesContext);
+  const { state, dispatch } = useContext(NotesContext);
   const [gridView, setGridView] = useState(true);
   const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
 
@@ -49,6 +48,10 @@ export default function AllNotes() {
     setExpandedNoteId(null);
   }, []);
 
+  const handleDeleteNote = (id: string) => {
+    dispatch({ type: "DELETE_NOTE", payload: id });
+  };
+
   return (
     <MainContainer>
       <TopRecoilIcon>
@@ -59,55 +62,57 @@ export default function AllNotes() {
         <ItemsContainer>
           <ChangeViewContainer onClick={toggleView}>
             {gridView ? <GridView /> : <ListView />}
-            <ChangeViewDescription>
-              Visualização de Grade
-            </ChangeViewDescription>
+            <ChangeViewDescription>Visualização de Grade</ChangeViewDescription>
           </ChangeViewContainer>
           <Line />
           <CardsContainer $view={gridView.toString()}>
             {state.notes.map((note) => (
-              <StyledLink key={note.id} to={`/note/${note.id}`}>
+              <>
                 {gridView ? (
                   <Card>
-                    <Header>
-                      <Title>{note.title.slice(0, 25)}</Title>
-                      <EditIcon />
-                    </Header>
-                    <TagsContainer>
-                      {note.tags.map((tag) => (
-                        <TagView key={tag}>{tag}</TagView>
-                      ))}
-                    </TagsContainer>
-                    <Content>{`${note.content.slice(0, 250)}...`}</Content>
+                    <StyledLink key={note.id} to={`/note/${note.id}`}>
+                      <Header>
+                        <Title>{note.title.slice(0, 25)}</Title>
+                        <EditIcon />
+                      </Header>
+                      <TagsContainer>
+                        {note.tags.map((tag) => (
+                          <TagView key={tag}>{tag}</TagView>
+                        ))}
+                      </TagsContainer>
+                      <Content>{`${note.content.slice(0, 250)}...`}</Content>
+                    </StyledLink>
+
                     <Footer>
-                      <StarIcon />
-                      <DeleteIcon />
+                      <DeleteIcon onClick={() => handleDeleteNote(note.id)} />
                     </Footer>
                   </Card>
                 ) : (
-                  <ListViewContainer>
-                    <ListItem
-                      onMouseEnter={() => handleMouseEnter(note.id)}
-                      onMouseLeave={handleMouseLeave}
-                    >
-                      <TopListContainer>
-                        <NoteIcon />
-                        <Title>{note.title}</Title>
-                      </TopListContainer>
-                      <ContentListViewContainer
-                        $expand={(expandedNoteId === note.id).toString()}
+                  <StyledLink key={note.id} to={`/note/${note.id}`}>
+                    <ListViewContainer>
+                      <ListItem
+                        onMouseEnter={() => handleMouseEnter(note.id)}
+                        onMouseLeave={handleMouseLeave}
                       >
-                        <ContentListView>{note.content}</ContentListView>
-                        <TagsViewContainer>
-                          {note.tags.map((tag) => (
-                            <TagView key={tag}>{tag}</TagView>
-                          ))}
-                        </TagsViewContainer>
-                      </ContentListViewContainer>
-                    </ListItem>
-                  </ListViewContainer>
+                        <TopListContainer>
+                          <NoteIcon />
+                          <Title>{note.title}</Title>
+                        </TopListContainer>
+                        <ContentListViewContainer
+                          $expand={(expandedNoteId === note.id).toString()}
+                        >
+                          <ContentListView>{note.content}</ContentListView>
+                          <TagsViewContainer>
+                            {note.tags.map((tag) => (
+                              <TagView key={tag}>{tag}</TagView>
+                            ))}
+                          </TagsViewContainer>
+                        </ContentListViewContainer>
+                      </ListItem>
+                    </ListViewContainer>
+                  </StyledLink>
                 )}
-              </StyledLink>
+              </>
             ))}
           </CardsContainer>
         </ItemsContainer>

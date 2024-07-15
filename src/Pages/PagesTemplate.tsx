@@ -111,7 +111,9 @@ export const Footer = styled.div`
   border-bottom-right-radius: 8px;
 `;
 
-export const DeleteIcon = styled(FaTrash)``;
+export const DeleteIcon = styled(FaTrash)`
+  cursor: pointer;
+`;
 
 export const StarIcon = styled(FaStar)``;
 

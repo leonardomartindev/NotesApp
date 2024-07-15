@@ -32,7 +32,7 @@ import { StyledLink } from "../components/QuickNotesBar/QuickNotesBar.style";
 import NotFoundNotes from "./NoteFoundNotesPage/NotFoundNotes";
 
 export default function ArchivedNotes() {
-  const { state } = useContext(NotesContext);
+  const { state, dispatch } = useContext(NotesContext);
   const [gridView, setGridView] = useState(true);
   const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
 
@@ -47,6 +47,10 @@ export default function ArchivedNotes() {
   const handleMouseLeave = useCallback(() => {
     setExpandedNoteId(null);
   }, []);
+
+  const handleDeleteNote = (id: string) => {
+    dispatch({ type: "DELETE_NOTE", payload: id });
+  };
 
   return (
     <MainContainer>
@@ -65,9 +69,10 @@ export default function ArchivedNotes() {
           <Line />
           <CardsContainer $view={gridView.toString()}>
             {state.archivedNotes.map((note) => (
-              <StyledLink key={note.id} to={`/note/${note.id}`}>
+              <>
                 {gridView ? (
                   <Card>
+                    <StyledLink key={note.id} to={`/note/${note.id}`}>
                     <Header>
                       <Title>{note.title.slice(0, 25)}</Title>
                       <EditIcon />
@@ -78,11 +83,13 @@ export default function ArchivedNotes() {
                       ))}
                     </TagsContainer>
                     <Content>{`${note.content.slice(0, 250)}...`}</Content>
+                    </StyledLink>
                     <Footer>
-                      <DeleteIcon />
+                    <DeleteIcon onClick={() => handleDeleteNote(note.id)} />
                     </Footer>
                   </Card>
                 ) : (
+                  <StyledLink key={note.id} to={`/note/${note.id}`}>
                   <ListViewContainer>
                     <ListItem
                       onMouseEnter={() => handleMouseEnter(note.id)}
@@ -104,8 +111,9 @@ export default function ArchivedNotes() {
                       </ContentListViewContainer>
                     </ListItem>
                   </ListViewContainer>
+                  </StyledLink>
                 )}
-              </StyledLink>
+              </>
             ))}
           </CardsContainer>
         </ItemsContainer>
