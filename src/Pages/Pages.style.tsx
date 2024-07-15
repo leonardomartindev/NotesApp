@@ -32,7 +32,6 @@ export const PageTop = styled.div`
   justify-content: space-between;
 
   @media (max-width: ${breakpoints.md}) {
-    flex-direction: column;
     align-items: center;
   }
 `;
@@ -47,6 +46,7 @@ export const PageTags = styled.div`
   @media (max-width: ${breakpoints.sm}) {
     font-size: 1.2rem;
   }
+  
 `;
 
 export const PageTag = styled.div`
@@ -65,8 +65,8 @@ export const PageOptions = styled.div`
   gap: 1rem;
   font-size: 2.6rem;
 
-  @media (max-width: ${breakpoints.sm}) {
-    font-size: 2rem;
+  @media (max-width: ${breakpoints.md}) {
+    font-size: 2.2rem;
   }
 `;
 

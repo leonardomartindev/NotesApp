@@ -13,6 +13,10 @@ export const QuickNotesContainer = styled.div<{ $visible: string }>`
   display: ${({ $visible }) => ($visible === "true" ? "flex" : "none")};
   user-select: none;
 
+  @media (max-width: 1000px) {
+    display: none;
+  }
+
 `;
 export const TopOptions = styled.div`
   display: flex;

@@ -117,9 +117,13 @@ export const SpanSwitch = styled.span`
     content: "";
     height: 1.8rem;
     width: 1.8rem;
-    left: 4px;
+    left: 0.4rem;
     bottom: 0.3rem;
     background-color: ${({ theme }) => theme.secondary};
+
+    @media (max-width: 1000px) {
+      left: 0;
+    }
   }
 `;
 
